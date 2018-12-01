@@ -1,7 +1,7 @@
 package sk.mholecy.meteorites
 
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import sk.mholecy.meteorites.ui.meteoriteslist.MeteoritesListFragment
 
 class MainActivity : AppCompatActivity() {
