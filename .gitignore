@@ -6,3 +6,4 @@
 /app/build
 /captures
 .externalNativeBuild
+/app/src/main/res/values/not-public-strings.xml
