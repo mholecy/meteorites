@@ -6,7 +6,7 @@ import com.squareup.moshi.JsonClass
 class ApiMeteoriteModel(
     val fall: String,
     val type: String?,
-    val id: String,
+    val id: Long,
     val mass: Double,
     val name: String,
     val nametype: String,

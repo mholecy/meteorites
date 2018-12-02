@@ -3,6 +3,7 @@ package sk.mholecy.meteorites
 import android.app.Application
 import org.koin.android.ext.android.startKoin
 import sk.mholecy.meteorites.common.di.apiModule
+import sk.mholecy.meteorites.common.di.databaseModule
 import sk.mholecy.meteorites.common.di.viewModelModule
 import sk.mholecy.meteorites.meteorites.di.meteoritesModule
 
@@ -18,8 +19,9 @@ class MeteoritesApplication : Application() {
             this,
             modules = listOf(
                 apiModule,
-                viewModelModule,
-                meteoritesModule
+                databaseModule,
+                meteoritesModule,
+                viewModelModule
             ),
             extraProperties = mapOf(
                 API_TOKEN to getString(R.string.nasa_api_token),

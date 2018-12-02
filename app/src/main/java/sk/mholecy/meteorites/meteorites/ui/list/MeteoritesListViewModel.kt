@@ -1,20 +1,18 @@
 package sk.mholecy.meteorites.meteorites.ui.list
 
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import sk.mholecy.meteorites.meteorites.api.model.ApiMeteoriteModel
-import sk.mholecy.meteorites.meteorites.service.MeteoritesListService
+import sk.mholecy.meteorites.meteorites.service.MeteoritesDatabaseService
 
 class MeteoritesListViewModel(
-    private val meteoritesService: MeteoritesListService
+    private val meteoritesService: MeteoritesDatabaseService
 ) : ViewModel() {
-    val meteorites = MutableLiveData<List<ApiMeteoriteModel>>()
+    val meteorites = meteoritesService.meteorites
 
     fun fetchMeteorites() {
         GlobalScope.launch {
-            meteorites.postValue(meteoritesService.getMeteoritesFromApi())
+            meteoritesService.updateDbData()
         }
     }
 }

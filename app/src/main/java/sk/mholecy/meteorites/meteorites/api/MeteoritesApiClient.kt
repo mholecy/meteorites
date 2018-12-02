@@ -8,7 +8,6 @@ import sk.mholecy.meteorites.meteorites.api.model.ApiMeteoriteModel
 interface MeteoritesApiClient {
     @GET("resource/y77d-th95.json")
     fun getMeteoritesData(
-        @Query("\$where") whereCondition: String,
-        @Query("\$order") orderBy: String
+        @Query("\$where") whereCondition: String
     ): Call<List<ApiMeteoriteModel>>
 }
