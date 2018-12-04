@@ -13,7 +13,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:onClick="@{clickListener}">
 
         <TextView
                 android:id="@+id/meteorite_item_title"
@@ -26,6 +27,8 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:text="Meteorite"/>
+                tools:text="Meteorite" android:layout_marginTop="16dp"/>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </layout>

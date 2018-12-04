@@ -3,7 +3,9 @@ package sk.mholecy.meteorites.common.di
 import org.koin.android.ext.koin.androidApplication
 import org.koin.androidx.viewmodel.ext.koin.viewModel
 import org.koin.dsl.module.module
+import sk.mholecy.meteorites.meteorites.database.dao.MeteoritesDao
 import sk.mholecy.meteorites.meteorites.service.MeteoritesDatabaseSyncService
+import sk.mholecy.meteorites.meteorites.ui.detail.MeteoriteMapViewModel
 import sk.mholecy.meteorites.meteorites.ui.list.MeteoritesListViewModel
 
 internal val viewModelModule = module {
@@ -11,6 +13,11 @@ internal val viewModelModule = module {
         MeteoritesListViewModel(
             get<MeteoritesDatabaseSyncService>(),
             androidApplication()
+        )
+    }
+    viewModel {
+        MeteoriteMapViewModel(
+            get<MeteoritesDao>()
         )
     }
 }

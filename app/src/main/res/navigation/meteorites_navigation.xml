@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:id="@+id/meteorites_navigation"
+            app:startDestination="@id/meteoritesListFragment">
+
+    <fragment android:id="@+id/meteoritesListFragment"
+              android:name="sk.mholecy.meteorites.meteorites.ui.list.MeteoritesListFragment"
+              android:label="MeteoritesListFragment"
+              tools:layout="@layout/fragment_meteorites_list">
+
+        <action android:id="@+id/action_meteoritesListFragment_to_meteoriteMapFragment"
+                app:destination="@id/meteoriteMapFragment"
+                app:enterAnim="@anim/anim_slide_in_right"
+                app:exitAnim="@anim/anim_slide_out_left"
+                app:popEnterAnim="@anim/anim_slide_in_left"
+                app:popExitAnim="@anim/anim_slide_out_right"/>
+    </fragment>
+
+    <fragment android:id="@+id/meteoriteMapFragment"
+              android:name="sk.mholecy.meteorites.meteorites.ui.detail.MeteoriteMapFragment"
+              android:label="MeteoriteMapFragment"
+              tools:layout="@layout/fragment_meteorite_map">
+        <argument
+                android:name="meteoriteId"
+                app:argType="long"/>
+    </fragment>
+
+</navigation>

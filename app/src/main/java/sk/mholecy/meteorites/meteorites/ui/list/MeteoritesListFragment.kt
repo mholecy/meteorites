@@ -12,10 +12,6 @@ import sk.mholecy.meteorites.databinding.FragmentMeteoritesListBinding
 import sk.mholecy.meteorites.meteorites.ui.list.adapter.MeteoritesAdapter
 
 class MeteoritesListFragment : Fragment() {
-    companion object {
-        fun newInstance() = MeteoritesListFragment()
-    }
-
     private val meteoritesViewModel: MeteoritesListViewModel by viewModel()
     private val meteoritesListAdapter: MeteoritesAdapter by inject()
 

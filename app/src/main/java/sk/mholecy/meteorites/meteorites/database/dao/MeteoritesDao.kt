@@ -24,4 +24,7 @@ interface MeteoritesDao {
 
     @Query("SELECT * from meteorites ORDER BY id DESC LIMIT 1")
     fun getMaxId(): DbMeteoriteModel?
+
+    @Query("SELECT * from meteorites WHERE id = :meteoriteId")
+    fun getMeteorite(meteoriteId: Long): LiveData<DbMeteoriteModel>
 }

@@ -3,10 +3,12 @@ package sk.mholecy.meteorites.meteorites.ui.list.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.findNavController
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import sk.mholecy.meteorites.databinding.ItemMeteoriteBinding
 import sk.mholecy.meteorites.meteorites.database.model.DbMeteoriteModel
+import sk.mholecy.meteorites.meteorites.ui.list.MeteoritesListFragmentDirections
 
 class MeteoritesAdapter(
     diffCallback: MeteoriteDiffCallback
@@ -33,7 +35,9 @@ class MeteoritesAdapter(
 
     private fun createOnClickListener(meteoriteId: Long): View.OnClickListener {
         return View.OnClickListener {
-
+            val direction =
+                MeteoritesListFragmentDirections.ActionMeteoritesListFragmentToMeteoriteMapFragment(meteoriteId)
+            it.findNavController().navigate(direction)
         }
     }
 
