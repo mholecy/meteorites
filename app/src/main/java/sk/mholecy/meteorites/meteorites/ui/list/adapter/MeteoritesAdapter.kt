@@ -3,18 +3,19 @@ package sk.mholecy.meteorites.meteorites.ui.list.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.ListAdapter
+import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import sk.mholecy.meteorites.databinding.ItemMeteoriteBinding
 import sk.mholecy.meteorites.meteorites.database.model.DbMeteoriteModel
 
 class MeteoritesAdapter(
     diffCallback: MeteoriteDiffCallback
-) : ListAdapter<DbMeteoriteModel, MeteoritesAdapter.ViewHolder>(diffCallback) {
+) : PagedListAdapter<DbMeteoriteModel, MeteoritesAdapter.ViewHolder>(diffCallback) {
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val meteorite = getItem(position)
         holder.apply {
+            meteorite ?: return@apply
             bind(createOnClickListener(meteorite.id), meteorite)
             itemView.tag = meteorite
         }

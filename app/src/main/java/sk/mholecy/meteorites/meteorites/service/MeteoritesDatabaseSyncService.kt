@@ -1,5 +1,6 @@
 package sk.mholecy.meteorites.meteorites.service
 
+import androidx.paging.LivePagedListBuilder
 import retrofit2.HttpException
 import sk.mholecy.meteorites.meteorites.api.MeteoritesApiClient
 import sk.mholecy.meteorites.meteorites.api.model.ApiMeteoriteModel
@@ -11,7 +12,7 @@ class MeteoritesDatabaseSyncService(
     private val meteoritesDao: MeteoritesDao,
     private val meteoritesConverter: MeteoritesConverter
 ) {
-    val meteorites = meteoritesDao.getMeteorites()
+    val meteorites = LivePagedListBuilder(meteoritesDao.getMeteoritesPaged(), 50).build()
 
     fun updateDbData(): Boolean {
         val maxDbId = meteoritesDao.getMaxId()?.id
