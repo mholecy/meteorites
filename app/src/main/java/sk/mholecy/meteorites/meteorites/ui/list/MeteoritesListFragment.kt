@@ -4,8 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import kotlinx.android.synthetic.main.fragment_meteorites_list.view.*
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import sk.mholecy.meteorites.databinding.FragmentMeteoritesListBinding
@@ -21,6 +23,8 @@ class MeteoritesListFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val binding = FragmentMeteoritesListBinding.inflate(inflater, container, false)
+        val activity = activity as AppCompatActivity
+        activity.setSupportActionBar(binding.meteoritesList.toolbar)
         binding.meteoritesList.adapter = meteoritesListAdapter
         subscribeUi()
         return binding.root
