@@ -35,4 +35,9 @@ data class DbMeteoriteModel(
 
     @ColumnInfo(name = "year")
     val year: Int
-)
+) {
+    val hasLocation: Boolean
+        get() = latitude != 0.0 || this.longitude != 0.0
+
+
+}

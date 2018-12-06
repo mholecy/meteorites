@@ -1,11 +1,15 @@
 package sk.mholecy.meteorites.meteorites.ui.list.adapter
 
+import android.content.Context
+import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.findNavController
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.snackbar.Snackbar
+import sk.mholecy.meteorites.R
 import sk.mholecy.meteorites.databinding.ItemMeteoriteBinding
 import sk.mholecy.meteorites.meteorites.database.model.DbMeteoriteModel
 import sk.mholecy.meteorites.meteorites.ui.list.MeteoritesListFragmentDirections
@@ -18,7 +22,7 @@ class MeteoritesAdapter(
         val meteorite = getItem(position)
         holder.apply {
             meteorite ?: return@apply
-            bind(createOnClickListener(meteorite.id), meteorite)
+            bind(createOnClickListener(meteorite), meteorite)
             itemView.tag = meteorite
         }
     }
@@ -33,11 +37,16 @@ class MeteoritesAdapter(
         )
     }
 
-    private fun createOnClickListener(meteoriteId: Long): View.OnClickListener {
+    private fun createOnClickListener(meteorite: DbMeteoriteModel): View.OnClickListener {
         return View.OnClickListener {
-            val direction =
-                MeteoritesListFragmentDirections.ActionMeteoritesListFragmentToMeteoriteMapFragment(meteoriteId)
-            it.findNavController().navigate(direction)
+            if (meteorite.hasLocation) {
+                val direction =
+                    MeteoritesListFragmentDirections.ActionMeteoritesListFragmentToMeteoriteMapFragment(meteorite.id)
+                it.findNavController().navigate(direction)
+            } else {
+                Snackbar.make(it, it.context.getString(R.string.meteorite_location_unknown), Snackbar.LENGTH_SHORT)
+                    .show()
+            }
         }
     }
 
@@ -48,7 +57,16 @@ class MeteoritesAdapter(
             binding.apply {
                 clickListener = listener
                 meteoriteModel = meteorite
+                meteoriteIcon = getLocationDrawable(meteorite, binding.root.context)
                 executePendingBindings()
+            }
+        }
+
+        private fun getLocationDrawable(meteorite: DbMeteoriteModel, context: Context): Drawable {
+            return if (meteorite.hasLocation) {
+                context.getDrawable(R.drawable.ic_location_on)!!
+            } else {
+                context.getDrawable(R.drawable.ic_location_off)!!
             }
         }
     }
