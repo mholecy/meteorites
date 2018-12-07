@@ -12,7 +12,8 @@ internal val viewModelModule = module {
     viewModel {
         MeteoritesListViewModel(
             get<MeteoritesDatabaseSyncService>(),
-            androidApplication()
+            androidApplication(),
+            get<MeteoritesDao>()
         )
     }
     viewModel {

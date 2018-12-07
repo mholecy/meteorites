@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">Meteorites</string>
     <string name="meteorite_location_unknown">Location of meteorite is unknown</string>
+    <string name="snackbar_acknowledge">Got it</string>
+    <string name="meteorites_count_message">%d meteorites have fallen since 2011</string>
+    <string name="action_show_meteorites_count">Show meteorites count</string>
 </resources>

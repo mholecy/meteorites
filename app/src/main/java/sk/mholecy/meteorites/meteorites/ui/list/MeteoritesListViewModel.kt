@@ -5,13 +5,16 @@ import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import sk.mholecy.meteorites.common.extensions.isOnline
+import sk.mholecy.meteorites.meteorites.database.dao.MeteoritesDao
 import sk.mholecy.meteorites.meteorites.service.MeteoritesDatabaseSyncService
 
 class MeteoritesListViewModel(
     private val meteoritesService: MeteoritesDatabaseSyncService,
-    private val context: Context
+    private val context: Context,
+    meteoritesDao: MeteoritesDao
 ) : ViewModel() {
     val meteorites = meteoritesService.meteorites
+    val meteoritesCount = meteoritesDao.getMeteoritesCount()
 
     fun fetchMeteorites() {
         if (context.isOnline()) {

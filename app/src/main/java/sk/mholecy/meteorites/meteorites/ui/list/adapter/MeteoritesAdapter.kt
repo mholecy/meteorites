@@ -10,6 +10,7 @@ import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
 import sk.mholecy.meteorites.R
+import sk.mholecy.meteorites.common.extensions.setBackgroundColor
 import sk.mholecy.meteorites.databinding.ItemMeteoriteBinding
 import sk.mholecy.meteorites.meteorites.database.model.DbMeteoriteModel
 import sk.mholecy.meteorites.meteorites.ui.list.MeteoritesListFragmentDirections
@@ -44,8 +45,13 @@ class MeteoritesAdapter(
                     MeteoritesListFragmentDirections.ActionMeteoritesListFragmentToMeteoriteMapFragment(meteorite.id)
                 it.findNavController().navigate(direction)
             } else {
-                Snackbar.make(it, it.context.getString(R.string.meteorite_location_unknown), Snackbar.LENGTH_SHORT)
-                    .show()
+                val snackBar = Snackbar.make(
+                    it,
+                    it.context.getString(R.string.meteorite_location_unknown),
+                    Snackbar.LENGTH_SHORT
+                )
+                snackBar.setBackgroundColor(R.color.primaryLightColor)
+                snackBar.show()
             }
         }
     }

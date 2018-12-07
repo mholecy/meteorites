@@ -27,4 +27,7 @@ interface MeteoritesDao {
 
     @Query("SELECT * from meteorites WHERE id = :meteoriteId")
     fun getMeteorite(meteoriteId: Long): LiveData<DbMeteoriteModel>
+
+    @Query("SELECT count(*) from meteorites")
+    fun getMeteoritesCount(): LiveData<Long>
 }
