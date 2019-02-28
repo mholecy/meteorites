@@ -10,7 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.google.android.material.snackbar.Snackbar
 import org.koin.android.ext.android.inject
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.androidx.viewmodel.ext.viewModel
 import sk.mholecy.meteorites.R
 import sk.mholecy.meteorites.common.extensions.setActionTextColorId
 import sk.mholecy.meteorites.common.extensions.setBackgroundColor

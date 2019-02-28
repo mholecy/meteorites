@@ -42,7 +42,7 @@ class MeteoritesAdapter(
         return View.OnClickListener {
             if (meteorite.hasLocation) {
                 val direction =
-                    MeteoritesListFragmentDirections.ActionMeteoritesListFragmentToMeteoriteMapFragment(meteorite.id)
+                    MeteoritesListFragmentDirections.actionMeteoritesListFragmentToMeteoriteMapFragment(meteorite.id)
                 it.findNavController().navigate(direction)
             } else {
                 val snackBar = Snackbar.make(

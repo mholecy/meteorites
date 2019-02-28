@@ -4,8 +4,8 @@ import android.content.Context
 import android.util.Log
 import androidx.work.Worker
 import androidx.work.WorkerParameters
-import org.koin.standalone.KoinComponent
-import org.koin.standalone.inject
+import org.koin.core.KoinComponent
+import org.koin.core.inject
 import sk.mholecy.meteorites.common.extensions.isOnline
 import sk.mholecy.meteorites.meteorites.service.MeteoritesDatabaseSyncService
 
@@ -21,12 +21,12 @@ class UpdateDatabaseWorker(
         return if (context.isOnline()) {
             val isSuccess = updateDbService.updateDbData()
             if (isSuccess) {
-                Result.SUCCESS
+                Result.success()
             } else {
-                Result.RETRY
+                Result.retry()
             }
         } else {
-            Result.RETRY
+            Result.retry()
         }
     }
 }

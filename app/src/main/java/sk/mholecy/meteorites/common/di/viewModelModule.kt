@@ -1,8 +1,8 @@
 package sk.mholecy.meteorites.common.di
 
 import org.koin.android.ext.koin.androidApplication
-import org.koin.androidx.viewmodel.ext.koin.viewModel
-import org.koin.dsl.module.module
+import org.koin.androidx.viewmodel.dsl.viewModel
+import org.koin.dsl.module
 import sk.mholecy.meteorites.meteorites.database.dao.MeteoritesDao
 import sk.mholecy.meteorites.meteorites.service.MeteoritesDatabaseSyncService
 import sk.mholecy.meteorites.meteorites.ui.detail.MeteoriteMapViewModel

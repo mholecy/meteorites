@@ -1,6 +1,6 @@
 package sk.mholecy.meteorites.meteorites.di
 
-import org.koin.dsl.module.module
+import org.koin.dsl.module
 import sk.mholecy.meteorites.common.database.Database
 import sk.mholecy.meteorites.meteorites.api.MeteoritesApiClient
 import sk.mholecy.meteorites.meteorites.database.converter.MeteoritesConverter

@@ -2,7 +2,7 @@ package sk.mholecy.meteorites.meteorites.ui.list
 
 import android.content.Context
 import androidx.lifecycle.ViewModel
-import kotlinx.coroutines.GlobalScope
+import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import sk.mholecy.meteorites.common.extensions.isOnline
 import sk.mholecy.meteorites.meteorites.database.dao.MeteoritesDao
@@ -18,7 +18,7 @@ class MeteoritesListViewModel(
 
     fun fetchMeteorites() {
         if (context.isOnline()) {
-            GlobalScope.launch {
+            viewModelScope.launch {
                 meteoritesService.updateDbData()
             }
         }

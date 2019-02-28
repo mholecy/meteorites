@@ -12,7 +12,7 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.androidx.viewmodel.ext.viewModel
 import sk.mholecy.meteorites.R
 import sk.mholecy.meteorites.databinding.FragmentMeteoriteMapBinding
 
@@ -24,11 +24,11 @@ class MeteoriteMapFragment : Fragment(), OnMapReadyCallback {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val meteoriteId = MeteoriteMapFragmentArgs.fromBundle(arguments).meteoriteId
+        val meteoriteId = MeteoriteMapFragmentArgs.fromBundle(arguments!!).meteoriteId
         val meteoriteMapBinding = FragmentMeteoriteMapBinding.inflate(inflater, container, false)
         meteoriteMapBinding.apply {
             viewModel = meteoriteMapViewModel
-            setLifecycleOwner(this@MeteoriteMapFragment)
+            lifecycleOwner = this@MeteoriteMapFragment
             meteoriteMapViewModel.getMeteorite(meteoriteId)
         }
         return meteoriteMapBinding.root

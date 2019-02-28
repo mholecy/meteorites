@@ -3,7 +3,7 @@ package sk.mholecy.meteorites.common.di
 import androidx.room.Room
 import androidx.work.WorkManager
 import org.koin.android.ext.koin.androidApplication
-import org.koin.dsl.module.module
+import org.koin.dsl.module
 import sk.mholecy.meteorites.common.database.Database
 import sk.mholecy.meteorites.common.database.DatabaseCallback
 

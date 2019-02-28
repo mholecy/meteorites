@@ -1,7 +1,8 @@
 package sk.mholecy.meteorites
 
 import android.app.Application
-import org.koin.android.ext.android.startKoin
+import org.koin.android.ext.koin.androidContext
+import org.koin.core.context.startKoin
 import sk.mholecy.meteorites.common.di.apiModule
 import sk.mholecy.meteorites.common.di.databaseModule
 import sk.mholecy.meteorites.common.di.viewModelModule
@@ -15,18 +16,20 @@ class MeteoritesApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        startKoin(
-            this,
-            modules = listOf(
+        startKoin {
+            androidContext(this@MeteoritesApplication)
+            modules(
                 apiModule,
                 databaseModule,
                 meteoritesModule,
                 viewModelModule
-            ),
-            extraProperties = mapOf(
-                API_TOKEN to getString(R.string.nasa_api_token),
-                NASA_API_URL to "https://data.nasa.gov"
             )
-        )
+            properties(
+                mapOf(
+                    API_TOKEN to getString(R.string.nasa_api_token),
+                    NASA_API_URL to "https://data.nasa.gov"
+                )
+            )
+        }
     }
 }

@@ -3,7 +3,7 @@ package sk.mholecy.meteorites.common.di
 import com.squareup.moshi.Moshi
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
-import org.koin.dsl.module.module
+import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import sk.mholecy.meteorites.MeteoritesApplication.Companion.API_TOKEN
