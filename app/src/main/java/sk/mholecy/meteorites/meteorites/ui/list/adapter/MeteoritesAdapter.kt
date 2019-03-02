@@ -41,8 +41,9 @@ class MeteoritesAdapter(
     private fun createOnClickListener(meteorite: DbMeteoriteModel): View.OnClickListener {
         return View.OnClickListener {
             if (meteorite.hasLocation) {
-                val direction =
-                    MeteoritesListFragmentDirections.actionMeteoritesListFragmentToMeteoriteMapFragment(meteorite.id)
+                val direction = MeteoritesListFragmentDirections.actionMeteoritesListFragmentToMeteoriteMapFragment(
+                    meteorite.id
+                )
                 it.findNavController().navigate(direction)
             } else {
                 val snackBar = Snackbar.make(
@@ -68,11 +69,11 @@ class MeteoritesAdapter(
             }
         }
 
-        private fun getLocationDrawable(meteorite: DbMeteoriteModel, context: Context): Drawable {
+        private fun getLocationDrawable(meteorite: DbMeteoriteModel, context: Context): Drawable? {
             return if (meteorite.hasLocation) {
-                context.getDrawable(R.drawable.ic_location_on)!!
+                context.getDrawable(R.drawable.ic_location_on)
             } else {
-                context.getDrawable(R.drawable.ic_location_off)!!
+                context.getDrawable(R.drawable.ic_location_off)
             }
         }
     }

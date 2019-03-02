@@ -66,11 +66,13 @@ class MeteoritesListFragment : Fragment() {
             String.format(getString(R.string.meteorites_count_message), meteoritesViewModel.meteoritesCount.value),
             Snackbar.LENGTH_INDEFINITE
         )
-        meteoriteCountSnackBar!!.setAction(getString(R.string.snackbar_acknowledge)) {
-            meteoriteCountSnackBar!!.dismiss()
+        meteoriteCountSnackBar?.apply {
+            setAction(getString(R.string.snackbar_acknowledge)) {
+                dismiss()
+            }
+            setBackgroundColor(R.color.primaryLightColor)
+            setActionTextColorId(R.color.secondaryLightColor)
+            show()
         }
-        meteoriteCountSnackBar!!.setBackgroundColor(R.color.primaryLightColor)
-        meteoriteCountSnackBar!!.setActionTextColorId(R.color.secondaryLightColor)
-        meteoriteCountSnackBar!!.show()
     }
 }
