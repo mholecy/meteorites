@@ -1,5 +1,6 @@
 package sk.mholecy.meteorites.common.di
 
+import kotlinx.coroutines.SupervisorJob
 import org.koin.android.ext.koin.androidApplication
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
@@ -20,5 +21,9 @@ internal val viewModelModule = module {
         MeteoriteMapViewModel(
             get<MeteoritesDao>()
         )
+    }
+
+    factory {
+        SupervisorJob()
     }
 }
