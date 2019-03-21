@@ -16,6 +16,13 @@
                 app:exitAnim="@anim/anim_slide_out_left"
                 app:popEnterAnim="@anim/anim_slide_in_left"
                 app:popExitAnim="@anim/anim_slide_out_right"/>
+
+        <action android:id="@+id/action_meteoritesListFragment_to_listFragment"
+                app:destination="@id/listFragment"
+                app:enterAnim="@anim/anim_slide_in_right"
+                app:exitAnim="@anim/anim_slide_out_left"
+                app:popEnterAnim="@anim/anim_slide_in_left"
+                app:popExitAnim="@anim/anim_slide_out_right"/>
     </fragment>
 
     <fragment android:id="@+id/meteoriteMapFragment"
@@ -26,5 +33,10 @@
                 android:name="meteoriteId"
                 app:argType="long"/>
     </fragment>
+
+    <fragment android:id="@+id/listFragment"
+              android:name="sk.mholecy.meteorites.meteorites.learn.ListFragment"
+              android:label="ListFragment"
+              tools:layout="@layout/fragment_list"/>
 
 </navigation>

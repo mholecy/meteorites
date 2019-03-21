@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.viewModel
@@ -53,6 +54,10 @@ class MeteoritesListFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
         R.id.action_show_meteorites_count -> {
             createMeteoriteCountSnackBar()
+            true
+        }
+        R.id.action_show_java -> {
+            findNavController().navigate(MeteoritesListFragmentDirections.actionMeteoritesListFragmentToListFragment())
             true
         }
         else -> {

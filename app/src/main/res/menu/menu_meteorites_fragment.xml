@@ -6,4 +6,9 @@
             android:icon="@drawable/ic_meteorite_color"
             android:title="@string/action_show_meteorites_count"
             app:showAsAction="always"/>
+
+    <item
+            android:id="@+id/action_show_java"
+            android:title="@string/action_show_meteorites_count"
+            app:showAsAction="never"/>
 </menu>
