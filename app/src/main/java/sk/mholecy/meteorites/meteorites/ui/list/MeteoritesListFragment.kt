@@ -6,21 +6,19 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.google.android.material.snackbar.Snackbar
-import org.koin.android.ext.android.inject
-import org.koin.androidx.viewmodel.ext.viewModel
 import sk.mholecy.meteorites.R
+import sk.mholecy.meteorites.common.base.BaseFragment
 import sk.mholecy.meteorites.common.extensions.setActionTextColorId
 import sk.mholecy.meteorites.common.extensions.setBackgroundColor
 import sk.mholecy.meteorites.databinding.FragmentMeteoritesListBinding
 import sk.mholecy.meteorites.meteorites.ui.list.adapter.MeteoritesAdapter
 
-class MeteoritesListFragment : Fragment() {
-    private val meteoritesViewModel: MeteoritesListViewModel by viewModel()
-    private val meteoritesListAdapter: MeteoritesAdapter by inject()
+class MeteoritesListFragment : BaseFragment() {
+    private val meteoritesListAdapter = MeteoritesAdapter()
     private lateinit var rootView: View
+    private lateinit var viewModel: MeteoritesListViewModel
     private var meteoriteCountSnackBar: Snackbar? = null
 
     override fun onCreateView(
@@ -39,15 +37,16 @@ class MeteoritesListFragment : Fragment() {
     }
 
     private fun subscribeUi() {
-        meteoritesViewModel.meteorites.observe(viewLifecycleOwner, Observer { meteorites ->
+        viewModel = getViewModel(MeteoritesListViewModel::class)
+        viewModel.meteorites.observe(viewLifecycleOwner, Observer { meteorites ->
             meteoritesListAdapter.submitList(meteorites)
         })
-        meteoritesViewModel.meteoritesCount.observe(viewLifecycleOwner, Observer {
+        viewModel.meteoritesCount.observe(viewLifecycleOwner, Observer {
             meteoriteCountSnackBar?.setText(
                 String.format(getString(R.string.meteorites_count_message), it)
             )
         })
-        meteoritesViewModel.fetchMeteorites()
+        viewModel.fetchMeteorites()
     }
 
     override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
@@ -63,7 +62,7 @@ class MeteoritesListFragment : Fragment() {
     private fun createMeteoriteCountSnackBar() {
         meteoriteCountSnackBar = Snackbar.make(
             rootView,
-            String.format(getString(R.string.meteorites_count_message), meteoritesViewModel.meteoritesCount.value),
+            String.format(getString(R.string.meteorites_count_message), viewModel.meteoritesCount.value),
             Snackbar.LENGTH_INDEFINITE
         )
         meteoriteCountSnackBar?.apply {

@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -12,24 +11,24 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
-import org.koin.androidx.viewmodel.ext.viewModel
 import sk.mholecy.meteorites.R
+import sk.mholecy.meteorites.common.base.BaseFragment
 import sk.mholecy.meteorites.databinding.FragmentMeteoriteMapBinding
 
-class MeteoriteMapFragment : Fragment(), OnMapReadyCallback {
-    private val meteoriteMapViewModel: MeteoriteMapViewModel by viewModel()
-
+class MeteoriteMapFragment : BaseFragment(), OnMapReadyCallback {
+    private lateinit var viewModel: MeteoriteMapViewModel
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        viewModel = getViewModel(MeteoriteMapViewModel::class)
         val meteoriteId = MeteoriteMapFragmentArgs.fromBundle(arguments!!).meteoriteId
         val meteoriteMapBinding = FragmentMeteoriteMapBinding.inflate(inflater, container, false)
         meteoriteMapBinding.apply {
-            viewModel = meteoriteMapViewModel
+            viewModel = this@MeteoriteMapFragment.viewModel
             lifecycleOwner = this@MeteoriteMapFragment
-            meteoriteMapViewModel.getMeteorite(meteoriteId)
+            this@MeteoriteMapFragment.viewModel.getMeteorite(meteoriteId)
         }
         return meteoriteMapBinding.root
     }
@@ -41,7 +40,7 @@ class MeteoriteMapFragment : Fragment(), OnMapReadyCallback {
     }
 
     override fun onMapReady(googleMap: GoogleMap) {
-        meteoriteMapViewModel.meteorite.observe(viewLifecycleOwner, Observer {
+        viewModel.meteorite.observe(viewLifecycleOwner, Observer {
             val position = LatLng(it.latitude, it.longitude)
             googleMap.addMarker(MarkerOptions().position(position).title(it.name))
             googleMap.moveCamera(CameraUpdateFactory.newLatLng(position))

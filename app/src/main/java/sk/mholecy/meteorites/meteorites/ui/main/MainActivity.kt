@@ -1,14 +1,15 @@
-package sk.mholecy.meteorites
+package sk.mholecy.meteorites.meteorites.ui.main
 
 import android.os.Bundle
 import android.view.Menu
-import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
+import sk.mholecy.meteorites.R
+import sk.mholecy.meteorites.common.base.BaseActivity
 import sk.mholecy.meteorites.databinding.ActivityMainBinding
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var navController: NavController

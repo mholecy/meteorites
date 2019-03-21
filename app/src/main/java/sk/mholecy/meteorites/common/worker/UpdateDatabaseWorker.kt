@@ -4,22 +4,23 @@ import android.content.Context
 import android.util.Log
 import androidx.work.Worker
 import androidx.work.WorkerParameters
-import org.koin.core.KoinComponent
-import org.koin.core.inject
 import sk.mholecy.meteorites.common.extensions.isOnline
-import sk.mholecy.meteorites.meteorites.service.MeteoritesDatabaseSyncService
 
 class UpdateDatabaseWorker(
     private val context: Context,
     workerParams: WorkerParameters
-) : Worker(context, workerParams), KoinComponent {
+) : Worker(context, workerParams) {
+
+    // @Inject
+    // lateinit var updateDbService: MeteoritesDatabaseSyncService
+
     private val TAG by lazy { UpdateDatabaseWorker::class.java.simpleName }
-    private val updateDbService: MeteoritesDatabaseSyncService by inject()
 
     override fun doWork(): Result {
         Log.i(TAG, "Executing periodic database sync")
         return if (context.isOnline()) {
-            val isSuccess = updateDbService.updateDbData()
+            // val isSuccess = updateDbService.updateDbData()
+            val isSuccess = true
             if (isSuccess) {
                 Result.success()
             } else {

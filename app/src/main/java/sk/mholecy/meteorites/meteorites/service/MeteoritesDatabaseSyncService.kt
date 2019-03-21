@@ -6,8 +6,9 @@ import sk.mholecy.meteorites.meteorites.api.MeteoritesApiClient
 import sk.mholecy.meteorites.meteorites.api.model.ApiMeteoriteModel
 import sk.mholecy.meteorites.meteorites.database.converter.MeteoritesConverter
 import sk.mholecy.meteorites.meteorites.database.dao.MeteoritesDao
+import javax.inject.Inject
 
-class MeteoritesDatabaseSyncService(
+class MeteoritesDatabaseSyncService @Inject constructor(
     private val meteoritesApiClient: MeteoritesApiClient,
     private val meteoritesDao: MeteoritesDao,
     private val meteoritesConverter: MeteoritesConverter

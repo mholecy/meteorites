@@ -1,15 +1,13 @@
-package sk.mholecy.meteorites.common.viewModel
+package sk.mholecy.meteorites.common.base
 
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
-import org.koin.core.KoinComponent
-import org.koin.core.inject
+import kotlinx.coroutines.SupervisorJob
 import kotlin.coroutines.CoroutineContext
 
-open class ScopedViewModel : ViewModel(), CoroutineScope, KoinComponent {
-    private val job: Job by inject()
+open class ScopedViewModel : ViewModel(), CoroutineScope {
+    private val job = SupervisorJob()
 
     override val coroutineContext: CoroutineContext = job + Dispatchers.Default
 

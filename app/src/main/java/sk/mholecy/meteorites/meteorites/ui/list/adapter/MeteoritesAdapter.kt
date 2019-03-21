@@ -14,10 +14,10 @@ import sk.mholecy.meteorites.common.extensions.setBackgroundColor
 import sk.mholecy.meteorites.databinding.ItemMeteoriteBinding
 import sk.mholecy.meteorites.meteorites.database.model.DbMeteoriteModel
 import sk.mholecy.meteorites.meteorites.ui.list.MeteoritesListFragmentDirections
+import javax.inject.Inject
 
-class MeteoritesAdapter(
-    diffCallback: MeteoriteDiffCallback
-) : PagedListAdapter<DbMeteoriteModel, MeteoritesAdapter.ViewHolder>(diffCallback) {
+class MeteoritesAdapter @Inject constructor(
+) : PagedListAdapter<DbMeteoriteModel, MeteoritesAdapter.ViewHolder>(MeteoriteDiffCallback) {
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val meteorite = getItem(position)
