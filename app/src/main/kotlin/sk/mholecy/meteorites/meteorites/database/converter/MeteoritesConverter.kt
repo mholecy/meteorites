@@ -2,8 +2,9 @@ package sk.mholecy.meteorites.meteorites.database.converter
 
 import sk.mholecy.meteorites.meteorites.api.model.ApiMeteoriteModel
 import sk.mholecy.meteorites.meteorites.database.model.DbMeteoriteModel
+import javax.inject.Inject
 
-class MeteoritesConverter {
+class MeteoritesConverter @Inject constructor() {
 
     fun convertToDbObject(apiMeteoriteModel: ApiMeteoriteModel): DbMeteoriteModel {
         return DbMeteoriteModel(

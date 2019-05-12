@@ -1,8 +1,5 @@
 package sk.mholecy.meteorites.meteorites.api.model
 
-import com.squareup.moshi.JsonClass
-
-@JsonClass(generateAdapter = true)
 class ApiMeteoriteModel(
     val fall: String,
     val type: String?,

@@ -2,6 +2,7 @@ package sk.mholecy.meteorites.common.di.module
 
 import android.content.Context
 import android.content.res.Resources
+import androidx.work.WorkManager
 import dagger.Module
 import dagger.Provides
 import sk.mholecy.meteorites.App
@@ -18,4 +19,8 @@ class ApplicationModule {
     @Singleton
     @Provides
     fun provideResources(@ApplicationContext context: Context): Resources = context.resources
+
+    @Singleton
+    @Provides
+    fun provideWorkManager(@ApplicationContext context: Context) = WorkManager.getInstance(context)
 }

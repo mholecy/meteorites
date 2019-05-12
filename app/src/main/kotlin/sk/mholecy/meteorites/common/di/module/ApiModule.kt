@@ -4,11 +4,13 @@ import android.content.Context
 import com.squareup.moshi.Moshi
 import dagger.Module
 import dagger.Provides
+import okhttp3.HttpUrl
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import sk.mholecy.meteorites.R
+import sk.mholecy.meteorites.common.di.retention.ApiUrl
 import sk.mholecy.meteorites.common.di.retention.ApplicationContext
 import sk.mholecy.meteorites.meteorites.api.ApiKeyInterceptor
 import sk.mholecy.meteorites.meteorites.api.MeteoritesApiClient
@@ -49,18 +51,19 @@ class ApiModule {
     @Provides
     fun provideMoshiConverterFactory(): MoshiConverterFactory {
         val moshi = Moshi.Builder().build()
-        return MoshiConverterFactory.create(moshi).withNullSerialization()
+        return MoshiConverterFactory.create(moshi)
     }
 
     @Singleton
     @Provides
     fun provideRetrofit(
+        @ApiUrl apiBaseUrl: HttpUrl,
         moshiConverterFactory: MoshiConverterFactory,
         okHttpClient: OkHttpClient
     ): Retrofit {
         return Retrofit.Builder()
             .addConverterFactory(moshiConverterFactory)
-            .baseUrl("https://data.nasa.gov")
+            .baseUrl(apiBaseUrl)
             .client(okHttpClient)
             .build()
     }

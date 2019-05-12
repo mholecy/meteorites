@@ -10,6 +10,7 @@ import sk.mholecy.meteorites.meteorites.database.model.DbMeteoriteModel
 
 @Dao
 interface MeteoritesDao {
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(meteoriteModel: DbMeteoriteModel)
 

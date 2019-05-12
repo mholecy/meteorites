@@ -10,8 +10,8 @@ import sk.mholecy.meteorites.meteorites.service.MeteoritesDatabaseSyncService
 import javax.inject.Inject
 
 class MeteoritesListViewModel @Inject constructor(
-    private val meteoritesService: MeteoritesDatabaseSyncService,
     @ApplicationContext private val context: Context,
+    private val meteoritesService: MeteoritesDatabaseSyncService,
     meteoritesDao: MeteoritesDao
 ) : ScopedViewModel() {
     val meteorites = meteoritesService.meteorites

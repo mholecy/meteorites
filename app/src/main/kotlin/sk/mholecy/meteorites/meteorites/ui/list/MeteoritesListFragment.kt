@@ -14,9 +14,11 @@ import sk.mholecy.meteorites.common.extensions.setActionTextColorId
 import sk.mholecy.meteorites.common.extensions.setBackgroundColor
 import sk.mholecy.meteorites.databinding.FragmentMeteoritesListBinding
 import sk.mholecy.meteorites.meteorites.ui.list.adapter.MeteoritesAdapter
+import javax.inject.Inject
 
 class MeteoritesListFragment : BaseFragment() {
-    private val meteoritesListAdapter = MeteoritesAdapter()
+    @Inject
+    lateinit var meteoritesListAdapter: MeteoritesAdapter
     private lateinit var rootView: View
     private lateinit var viewModel: MeteoritesListViewModel
     private var meteoriteCountSnackBar: Snackbar? = null

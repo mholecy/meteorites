@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModelProvider
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
-import sk.mholecy.meteorites.common.di.ViewModelFactory
+import sk.mholecy.meteorites.common.di.AppViewModelFactory
 import sk.mholecy.meteorites.common.di.retention.ViewModelKey
 import sk.mholecy.meteorites.meteorites.ui.detail.MeteoriteMapViewModel
 import sk.mholecy.meteorites.meteorites.ui.list.MeteoritesListViewModel
@@ -14,7 +14,7 @@ import sk.mholecy.meteorites.meteorites.ui.list.MeteoritesListViewModel
 abstract class ViewModelModule {
 
     @Binds
-    abstract fun bindViewModelFactory(viewModelFactory: ViewModelFactory): ViewModelProvider.Factory
+    abstract fun bindAppViewModelFactory(appViewModelFactory: AppViewModelFactory): ViewModelProvider.Factory
 
     @Binds
     @IntoMap

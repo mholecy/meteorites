@@ -20,7 +20,7 @@ Create simple app which shows list and total count of meteorites which fall onto
 * Google maps (play service)
 * Kotlin
 * Kotlin coroutines as async and background task library
-* Koin for dependency injection
+* Dagger for dependency injection
 * Moshi for parsing JSON and mapping it to Kotlin objects
 * OkHttp as HTTP client
 * Retrofit as REST client

@@ -1,20 +1,19 @@
 plugins {
     id("com.android.application")
     id("androidx.navigation.safeargs")
-    //id("io.fabric")
     kotlin("android")
     kotlin("kapt")
     kotlin("android.extensions")
 }
 
 android {
-    compileSdkVersion(28)
+    compileSdkVersion(Project.targetSdk)
     defaultConfig {
-        applicationId = "sk.mholecy.meteorites"
-        minSdkVersion(21)
-        targetSdkVersion(28)
-        versionCode = 1
-        versionName = "1.0"
+        applicationId = Project.applicationId
+        minSdkVersion(Project.minSdk)
+        targetSdkVersion(Project.targetSdk)
+        versionCode = Project.versionCode
+        versionName = Project.versionName
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
         vectorDrawables.useSupportLibrary = true
@@ -43,56 +42,93 @@ android {
         setTargetCompatibility(JavaVersion.VERSION_1_8)
     }
 
+    signingConfigs {
+        getByName(Project.BuildType.DEBUG) {
+            storeFile = rootProject.file("./keystore/debug.jks")
+            storePassword = Project.Debug.STORE_PASSWORD
+            keyAlias = Project.Debug.KEY_ALIAS
+            keyPassword = Project.Debug.KEY_PASSWORD
+        }
+        create(Project.BuildType.CLIENT) {
+            storeFile = rootProject.file("./keystore/client.jks")
+            storePassword = Project.Debug.STORE_PASSWORD
+            keyAlias = Project.Debug.KEY_ALIAS
+            keyPassword = Project.Debug.KEY_PASSWORD
+        }
+    }
+
+    sourceSets {
+        getByName("main").java.setSrcDirs(hashSetOf("src/main/kotlin"))
+        create(Project.Flavor.DEVELOP).java.setSrcDirs(hashSetOf("src/dev/kotlin"))
+        create(Project.Flavor.PRODUCTION).java.setSrcDirs(hashSetOf("src/prod/kotlin"))
+        getByName("test").java.setSrcDirs(hashSetOf("src/test/kotlin"))
+        getByName("androidTest").java.setSrcDirs(hashSetOf("src/androidTest/kotlin"))
+    }
+
     buildTypes {
-        getByName("debug") {
+        getByName(Project.BuildType.DEBUG) {
             manifestPlaceholders = mapOf("enableCrashReporting" to "false")
             isMinifyEnabled = false
             isShrinkResources = false
-            signingConfig = signingConfigs.getByName("debug")
+            signingConfig = signingConfigs.getByName(Project.BuildType.DEBUG)
         }
-        getByName("release") {
+        create(Project.BuildType.CLIENT) {
             manifestPlaceholders = mapOf("enableCrashReporting" to "true")
             isMinifyEnabled = true
             isShrinkResources = true
-            //signingConfig = signingConfigs.getByName("release")
-            proguardFile(getDefaultProguardFile("proguard-android.txt"))
+            signingConfig = signingConfigs.getByName(Project.BuildType.CLIENT)
+            proguardFile(getDefaultProguardFile("proguard-android-optimize.txt"))
             proguardFile(file("proguard-rules.pro"))
+        }
+    }
+
+    flavorDimensions(Project.Flavor.DIMENSION)
+    productFlavors {
+        create(Project.Flavor.DEVELOP) {
+            setDimension(Project.Flavor.DIMENSION)
+        }
+        create(Project.Flavor.PRODUCTION) {
+            setDimension(Project.Flavor.DIMENSION)
         }
     }
 }
 
 dependencies {
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
-    implementation("android.arch.navigation:navigation-fragment-ktx:1.0.0")
-    implementation("android.arch.navigation:navigation-ui-ktx:1.0.0")
-    implementation("android.arch.work:work-runtime-ktx:1.0.1")
-    implementation("androidx.lifecycle:lifecycle-extensions:2.0.0")
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.1.0-alpha04")
-    implementation("androidx.appcompat:appcompat:1.0.2")
-    implementation("androidx.constraintlayout:constraintlayout:2.0.0-alpha5")
-    implementation("androidx.paging:paging-runtime:2.1.0")
-    implementation("androidx.recyclerview:recyclerview:1.0.0")
-    implementation("androidx.room:room-runtime:2.1.0-alpha07")
-    implementation("com.squareup.moshi:moshi:1.8.0")
-    implementation("com.squareup.okhttp3:okhttp:3.14.1")
-    implementation("com.squareup.okhttp3:logging-interceptor:3.14.1")
-    implementation("com.squareup.retrofit2:retrofit:2.5.0")
-    implementation("com.squareup.retrofit2:converter-moshi:2.5.0")
-    implementation("com.google.android.material:material:1.1.0-alpha06")
-    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.3.31")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.1.1")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.1.1")
-    implementation("com.google.android.gms:play-services-maps:16.1.0")
-    implementation("com.google.dagger:dagger-android:2.22.1")
-    implementation("com.google.dagger:dagger-android-support:2.22.1")
+    implementation(Dependencies.Kotlin.stdlib)
+    implementation(Dependencies.Coroutines.coroutinesAndroid)
 
-    kapt("com.google.dagger:dagger-compiler:2.22.1")
-    kapt("com.google.dagger:dagger-android-processor:2.22.1")
-    kapt("androidx.room:room-compiler:2.1.0-alpha07")
-    kapt("com.squareup.moshi:moshi-kotlin-codegen:1.8.0")
+    implementation(Dependencies.NavigationComponents.fragment)
+    implementation(Dependencies.NavigationComponents.ui)
 
-    testImplementation("junit:junit:4.12")
+    implementation(Dependencies.Support.lifecycleExtensions)
+    implementation(Dependencies.Support.appcompat)
+    implementation(Dependencies.Support.constraintLayout)
+    implementation(Dependencies.Support.pagingLibrary)
+    implementation(Dependencies.Support.recyclerview)
+    implementation(Dependencies.Support.material)
+    implementation(Dependencies.Support.workManager)
 
-    androidTestImplementation("androidx.test:runner:1.2.0-alpha05")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.2.0-alpha05")
+    implementation(Dependencies.Database.room)
+
+    implementation(Dependencies.Networking.moshi)
+    implementation(Dependencies.Networking.okHttp)
+    implementation(Dependencies.Networking.logging)
+    implementation(Dependencies.Networking.retrofit)
+    implementation(Dependencies.Networking.retrofitConverter)
+
+    implementation(Dependencies.Plugins.googleMaps)
+
+    implementation(Dependencies.Other.timber)
+
+    implementation(Dependencies.DependencyInjection.daggerAndroid)
+    implementation(Dependencies.DependencyInjection.daggerAndroidSupport)
+
+    kapt(Dependencies.DependencyInjection.daggerAndroidProcessor)
+    kapt(Dependencies.DependencyInjection.daggerCompiler)
+    kapt(Dependencies.Database.roomCompiler)
+
+    androidTestImplementation(Dependencies.AndroidTests.androidJUnit)
+    androidTestImplementation(Dependencies.AndroidTests.espresso)
+    androidTestImplementation(Dependencies.AndroidTests.runner)
 }

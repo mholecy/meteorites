@@ -8,16 +8,11 @@ import dagger.Provides
 import sk.mholecy.meteorites.common.database.Database
 import sk.mholecy.meteorites.common.database.DatabaseCallback
 import sk.mholecy.meteorites.common.di.retention.ApplicationContext
+import sk.mholecy.meteorites.meteorites.database.dao.MeteoritesDao
 import javax.inject.Singleton
 
 @Module
 class DatabaseModule {
-
-    @Singleton
-    @Provides
-    fun provideWorkManager(): WorkManager {
-        return WorkManager.getInstance()
-    }
 
     @Singleton
     @Provides
@@ -35,4 +30,8 @@ class DatabaseModule {
             .addCallback(databaseCallback)
             .build()
     }
+
+    @Singleton
+    @Provides
+    fun provideMeteoritesDao(database: Database): MeteoritesDao = database.meteoritesDao()
 }
