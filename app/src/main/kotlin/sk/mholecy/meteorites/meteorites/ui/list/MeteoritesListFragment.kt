@@ -20,8 +20,11 @@ class MeteoritesListFragment : BaseFragment() {
     @Inject
     lateinit var meteoritesListAdapter: MeteoritesAdapter
     private lateinit var rootView: View
-    private lateinit var viewModel: MeteoritesListViewModel
     private var meteoriteCountSnackBar: Snackbar? = null
+
+    private val viewModel by lazy {
+        getViewModel(MeteoritesListViewModel::class)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -39,7 +42,6 @@ class MeteoritesListFragment : BaseFragment() {
     }
 
     private fun subscribeUi() {
-        viewModel = getViewModel(MeteoritesListViewModel::class)
         viewModel.meteorites.observe(viewLifecycleOwner, Observer { meteorites ->
             meteoritesListAdapter.submitList(meteorites)
         })
@@ -48,7 +50,6 @@ class MeteoritesListFragment : BaseFragment() {
                 String.format(getString(R.string.meteorites_count_message), it)
             )
         })
-        viewModel.fetchMeteorites()
     }
 
     override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {

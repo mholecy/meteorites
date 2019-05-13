@@ -1,6 +1,5 @@
 package sk.mholecy.meteorites.common.base
 
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProviders
 import dagger.android.support.DaggerFragment
 import sk.mholecy.meteorites.common.di.AppViewModelFactory
@@ -12,6 +11,8 @@ open class BaseFragment : DaggerFragment() {
     @Inject
     lateinit var appViewModelFactory: AppViewModelFactory
 
-    fun <VM : ViewModel> getViewModel(viewModelClass: KClass<VM>): VM =
-        ViewModelProviders.of(this, appViewModelFactory)[viewModelClass.java]
+    fun <VM : BaseViewModel> getViewModel(viewModelClass: KClass<VM>): VM =
+        ViewModelProviders.of(this, appViewModelFactory)[viewModelClass.java].apply {
+            lifecycle.addObserver(this)
+        }
 }

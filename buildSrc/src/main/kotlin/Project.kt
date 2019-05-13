@@ -15,7 +15,7 @@ object Project {
 
     object BuildType {
         const val DEBUG = "debug"
-        const val CLIENT = "client"
+        const val RELEASE = "release"
     }
 
     object Debug {

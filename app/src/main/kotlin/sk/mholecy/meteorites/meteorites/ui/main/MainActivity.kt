@@ -5,11 +5,11 @@ import android.view.Menu
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
+import dagger.android.support.DaggerAppCompatActivity
 import sk.mholecy.meteorites.R
-import sk.mholecy.meteorites.common.base.BaseActivity
 import sk.mholecy.meteorites.databinding.ActivityMainBinding
 
-class MainActivity : BaseActivity() {
+class MainActivity : DaggerAppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var navController: NavController

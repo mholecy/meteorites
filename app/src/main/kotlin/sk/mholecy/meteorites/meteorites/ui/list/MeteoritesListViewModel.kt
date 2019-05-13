@@ -17,7 +17,7 @@ class MeteoritesListViewModel @Inject constructor(
     val meteorites = meteoritesService.meteorites
     val meteoritesCount = meteoritesDao.getMeteoritesCount()
 
-    fun fetchMeteorites() {
+    override fun onStart() {
         if (context.isOnline()) {
             launch {
                 meteoritesService.updateDbData()

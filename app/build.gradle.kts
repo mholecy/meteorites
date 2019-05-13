@@ -49,7 +49,7 @@ android {
             keyAlias = Project.Debug.KEY_ALIAS
             keyPassword = Project.Debug.KEY_PASSWORD
         }
-        create(Project.BuildType.CLIENT) {
+        create(Project.BuildType.RELEASE) {
             storeFile = rootProject.file("./keystore/client.jks")
             storePassword = Project.Debug.STORE_PASSWORD
             keyAlias = Project.Debug.KEY_ALIAS
@@ -72,11 +72,11 @@ android {
             isShrinkResources = false
             signingConfig = signingConfigs.getByName(Project.BuildType.DEBUG)
         }
-        create(Project.BuildType.CLIENT) {
+        getByName(Project.BuildType.RELEASE) {
             manifestPlaceholders = mapOf("enableCrashReporting" to "true")
             isMinifyEnabled = true
             isShrinkResources = true
-            signingConfig = signingConfigs.getByName(Project.BuildType.CLIENT)
+            signingConfig = signingConfigs.getByName(Project.BuildType.RELEASE)
             proguardFile(getDefaultProguardFile("proguard-android-optimize.txt"))
             proguardFile(file("proguard-rules.pro"))
         }

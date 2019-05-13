@@ -16,13 +16,16 @@ import sk.mholecy.meteorites.common.base.BaseFragment
 import sk.mholecy.meteorites.databinding.FragmentMeteoriteMapBinding
 
 class MeteoriteMapFragment : BaseFragment(), OnMapReadyCallback {
-    private lateinit var viewModel: MeteoriteMapViewModel
+
+    private val viewModel by lazy {
+        getViewModel(MeteoriteMapViewModel::class)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        viewModel = getViewModel(MeteoriteMapViewModel::class)
         val meteoriteId = MeteoriteMapFragmentArgs.fromBundle(arguments!!).meteoriteId
         val meteoriteMapBinding = FragmentMeteoriteMapBinding.inflate(inflater, container, false)
         meteoriteMapBinding.apply {
