@@ -1,8 +1,8 @@
 package sk.mholecy.meteorites.common.worker
 
 import android.content.Context
+import androidx.work.CoroutineWorker
 import androidx.work.ListenableWorker
-import androidx.work.Worker
 import androidx.work.WorkerParameters
 import sk.mholecy.meteorites.common.base.ChildWorkerFactory
 import sk.mholecy.meteorites.common.extensions.isOnline
@@ -15,9 +15,9 @@ class UpdateDatabaseWorker(
     private val context: Context,
     workerParams: WorkerParameters,
     private val updateDbService: MeteoritesDatabaseSyncService
-) : Worker(context, workerParams) {
+) : CoroutineWorker(context, workerParams) {
 
-    override fun doWork(): Result {
+    override suspend fun doWork(): Result {
         Timber.d("Executing periodic database sync")
         return if (context.isOnline()) {
             val isSuccess = updateDbService.updateDbData()

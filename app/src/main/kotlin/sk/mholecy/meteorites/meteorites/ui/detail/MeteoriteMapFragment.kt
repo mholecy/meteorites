@@ -17,28 +17,27 @@ import sk.mholecy.meteorites.databinding.FragmentMeteoriteMapBinding
 
 class MeteoriteMapFragment : BaseFragment(), OnMapReadyCallback {
 
-    private val viewModel by lazy {
-        getViewModel(MeteoriteMapViewModel::class)
-    }
+    private val viewModel: MeteoriteMapViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        val meteoriteId = MeteoriteMapFragmentArgs.fromBundle(arguments!!).meteoriteId
+    ): View {
+        val meteoriteId = MeteoriteMapFragmentArgs.fromBundle(requireArguments()).meteoriteId
+        viewModel.getMeteorite(meteoriteId)
         val meteoriteMapBinding = FragmentMeteoriteMapBinding.inflate(inflater, container, false)
         meteoriteMapBinding.apply {
-            viewModel = this@MeteoriteMapFragment.viewModel
-            lifecycleOwner = this@MeteoriteMapFragment
-            this@MeteoriteMapFragment.viewModel.getMeteorite(meteoriteId)
+            viewModel = viewModel
+            lifecycleOwner = viewLifecycleOwner
         }
         return meteoriteMapBinding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val mapFragment = childFragmentManager.findFragmentById(R.id.fragment_map) as SupportMapFragment
+        val mapFragment =
+            childFragmentManager.findFragmentById(R.id.fragment_map) as SupportMapFragment
         mapFragment.getMapAsync(this)
     }
 

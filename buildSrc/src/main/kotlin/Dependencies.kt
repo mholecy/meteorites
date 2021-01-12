@@ -2,25 +2,26 @@ object Dependencies {
     const val gradlePlugin = "com.android.tools.build:gradle:${Versions.gradle}"
 
     object Plugins {
-        const val detekt = "io.gitlab.arturbosch.detekt"
-        const val ktlint = "org.jlleitschuh.gradle.ktlint"
         const val dependencyUpdates = "com.github.ben-manes.versions"
         const val googleMaps = "com.google.android.gms:play-services-maps:${Versions.maps}"
     }
 
     object Kotlin {
         const val gradlePlugin = "gradle-plugin"
-        const val stdlib = "org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.3.31"
+        const val stdlib = "org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.3.72"
     }
 
     object Support {
         const val appcompat = "androidx.appcompat:appcompat:${Versions.appcompat}"
         const val constraintLayout = "androidx.constraintlayout:constraintlayout:${Versions.constraintLayout}"
         const val lifecycleExtensions = "androidx.lifecycle:lifecycle-extensions:${Versions.lifecycle}"
+        const val livedataExtensions = "androidx.lifecycle:lifecycle-livedata-ktx:${Versions.lifecycle}"
+        const val viewModelLifecycleExtensions = "androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.lifecycle}"
         const val material = "com.google.android.material:material:${Versions.material}"
         const val recyclerview = "androidx.recyclerview:recyclerview:${Versions.recyclerView}"
         const val pagingLibrary = "androidx.paging:paging-runtime:${Versions.pagingLibrary}"
         const val workManager = "androidx.work:work-runtime-ktx:${Versions.workManager}"
+        const val fragmentKtx = "androidx.fragment:fragment-ktx:${Versions.fragmentKtx}"
     }
 
     object DependencyInjection {
@@ -51,6 +52,7 @@ object Dependencies {
     object Database {
         const val room = "androidx.room:room-runtime:${Versions.room}"
         const val roomCompiler = "androidx.room:room-compiler:${Versions.room}"
+        const val roomKtx = "androidx.room:room-ktx:${Versions.room}"
     }
 
     object Other {

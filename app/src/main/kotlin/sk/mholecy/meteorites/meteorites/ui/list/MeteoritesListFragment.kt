@@ -22,15 +22,13 @@ class MeteoritesListFragment : BaseFragment() {
     private lateinit var rootView: View
     private var meteoriteCountSnackBar: Snackbar? = null
 
-    private val viewModel by lazy {
-        getViewModel(MeteoritesListViewModel::class)
-    }
+    private val viewModel: MeteoritesListViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         val binding = FragmentMeteoritesListBinding.inflate(inflater, container, false)
         val activity = activity as AppCompatActivity
         activity.setSupportActionBar(binding.toolbar)
@@ -57,15 +55,16 @@ class MeteoritesListFragment : BaseFragment() {
             createMeteoriteCountSnackBar()
             true
         }
-        else -> {
-            super.onOptionsItemSelected(item)
-        }
+        else -> super.onOptionsItemSelected(item)
     }
 
     private fun createMeteoriteCountSnackBar() {
         meteoriteCountSnackBar = Snackbar.make(
             rootView,
-            String.format(getString(R.string.meteorites_count_message), viewModel.meteoritesCount.value),
+            String.format(
+                getString(R.string.meteorites_count_message),
+                viewModel.meteoritesCount.value
+            ),
             Snackbar.LENGTH_INDEFINITE
         )
         meteoriteCountSnackBar?.apply {

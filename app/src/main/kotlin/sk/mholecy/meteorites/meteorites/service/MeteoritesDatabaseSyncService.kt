@@ -1,6 +1,7 @@
 package sk.mholecy.meteorites.meteorites.service
 
 import androidx.paging.LivePagedListBuilder
+import kotlinx.coroutines.flow.first
 import retrofit2.HttpException
 import sk.mholecy.meteorites.meteorites.api.MeteoritesApiClient
 import sk.mholecy.meteorites.meteorites.api.model.ApiMeteoriteModel
@@ -12,10 +13,10 @@ class MeteoritesDatabaseSyncService @Inject constructor(
     private val meteoritesApiClient: MeteoritesApiClient,
     private val meteoritesDao: MeteoritesDao
 ) {
-    val meteorites = LivePagedListBuilder(meteoritesDao.getMeteoritesPaged(), 50).build()
+    val meteorites = LivePagedListBuilder(meteoritesDao.getMeteoritesPaged(), 20).build()
 
-    fun updateDbData(): Boolean {
-        val maxDbId = meteoritesDao.getMaxId()?.id
+    suspend fun updateDbData(): Boolean {
+        val maxDbId = meteoritesDao.getMaxId().first()?.id
         val apiWhereCondition = if (maxDbId == null) {
             "year>=\"2011-01-01T00:00:00.000\""
         } else {
@@ -23,24 +24,14 @@ class MeteoritesDatabaseSyncService @Inject constructor(
         }
 
         return try {
-            val meteoritesToInsert =
-                getMeteoritesFromApi(apiWhereCondition)
-                    .map { apiMeteoriteModel -> apiMeteoriteModel.convertToDbObject() }
-            meteoritesDao.insert(meteoritesToInsert)
+            val meteoritesToInsert = meteoritesApiClient
+                .getMeteoritesData(apiWhereCondition)
+                .map { apiMeteoriteModel -> apiMeteoriteModel.convertToDbObject() }
+            meteoritesDao.insertAll(meteoritesToInsert)
             true
         } catch (httpException: HttpException) {
             httpException.printStackTrace()
             false
-        }
-    }
-
-    private fun getMeteoritesFromApi(whereCondition: String): List<ApiMeteoriteModel> {
-        val request = meteoritesApiClient.getMeteoritesData(whereCondition)
-        val response = request.execute()
-        return if (response.isSuccessful) {
-            response.body() ?: emptyList()
-        } else {
-            throw HttpException(response)
         }
     }
 

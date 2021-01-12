@@ -20,12 +20,6 @@ android {
         multiDexEnabled = true
     }
 
-    androidExtensions {
-        configure {
-            isExperimental = true
-        }
-    }
-
     packagingOptions {
         exclude("META-INF/DEPENDENCIES")
         exclude("META-INF/DEPENDENCIES")
@@ -33,13 +27,17 @@ android {
         exclude("README.txt")
     }
 
-    dataBinding {
-        isEnabled = true
+    buildFeatures {
+        dataBinding = true
     }
 
     compileOptions {
-        setSourceCompatibility(JavaVersion.VERSION_1_8)
-        setTargetCompatibility(JavaVersion.VERSION_1_8)
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
+
+        kotlinOptions {
+            jvmTarget = "1.8"
+        }
     }
 
     signingConfigs {
@@ -102,14 +100,18 @@ dependencies {
     implementation(Dependencies.NavigationComponents.ui)
 
     implementation(Dependencies.Support.lifecycleExtensions)
+    implementation(Dependencies.Support.livedataExtensions)
+    implementation(Dependencies.Support.viewModelLifecycleExtensions)
     implementation(Dependencies.Support.appcompat)
     implementation(Dependencies.Support.constraintLayout)
     implementation(Dependencies.Support.pagingLibrary)
     implementation(Dependencies.Support.recyclerview)
     implementation(Dependencies.Support.material)
     implementation(Dependencies.Support.workManager)
+    implementation(Dependencies.Support.fragmentKtx)
 
     implementation(Dependencies.Database.room)
+    implementation(Dependencies.Database.roomKtx)
 
     implementation(Dependencies.Networking.moshi)
     implementation(Dependencies.Networking.okHttp)
