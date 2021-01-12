@@ -1,9 +1,10 @@
 *.iml
 .gradle
-.idea
+/.idea
 /local.properties
 .DS_Store
 /app/build
+/buildSrc
 /captures
 .externalNativeBuild
 /app/src/main/res/values/not-public-strings.xml
