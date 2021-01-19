@@ -17,7 +17,9 @@ class MeteoritesListViewModel @Inject constructor(
     meteoritesDao: MeteoritesDao
 ) : BaseViewModel() {
     val meteorites = meteoritesService.meteorites
-    val meteoritesCount = meteoritesDao.getMeteoritesCount().asLiveData()
+    val meteoritesCount = meteoritesDao
+        .getMeteoritesCount()
+        .asLiveData(viewModelScope.coroutineContext)
 
     override fun onStart() {
         if (context.isOnline()) {
